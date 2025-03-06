@@ -12,8 +12,18 @@ const handleSubmit = (event) => {
     onFetchTrivia({ numQuest, cat, level, type });
 };
 
+const handleNumQuest = (event) => {
+    const value = parseInt(event.target.value, 5);
+if (value >= 1 && value <= 5) {
+    setNumQuest(value);
+} else {
+    alert('Please insert an number between 1-5');
+    setNumQuest(5);
+    }
+};
+
 return (
-    <form>
+    <form onSubmit={handleSubmit}>
         <h1>Let's Play Music Trivia</h1>
 
         <label>
@@ -21,7 +31,9 @@ return (
             <input
                 type="number"
                 value={numQuest}
-                onChange={(e) => setNumQuest(e.target.value)} />
+                onChange={handleNumQuest}
+                min="1"
+                max="5"/>
         </label>
         <br />
 
