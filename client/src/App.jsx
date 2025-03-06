@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import TriviaForm from './components/TriviaForm'
 import './App.css'
+import PlayerName from './components/PlayerName'
 
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
 
   return (
     <>
+    <PlayerName />
     <TriviaForm />
     </>
   )
