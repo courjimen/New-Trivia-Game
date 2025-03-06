@@ -5,7 +5,7 @@ function TriviaForm({ onFetchTrivia }) {
     const [cat, setCat] = useState('');
     const [level, setLevel] = useState('');
     const [type, setType] = useState('');
-}
+
 
 const handleSubmit = (event) => {
     event.preventDefault();
@@ -25,19 +25,23 @@ return (
         </label>
 
         <label>
-            How many questions?
-            <input
-                type="number"
-                value={numQuest}
-                onChange={(e) => setNumQuest(e.target.value)} />
+            Category:
+            <select value={cat} onChange={(e) =>setCat(e.target.value)}>
+                <option value=" "> Any Category</option>
+                <option value="1"> Music</option>
+                <option value="2"> Musicals & Theaters</option>
+                <option value="3"> Celebs</option>
+                </select>
         </label>
 
         <label>
-            How many questions?
-            <input
-                type="number"
-                value={numQuest}
-                onChange={(e) => setNumQuest(e.target.value)} />
+            Difficulty:
+            <select value={level} onChange={(e) =>setLevel(e.target.value)}>
+                <option value=" "> Any Difficulty</option>
+                <option value="1"> Easy </option>
+                <option value="2"> Medium </option>
+                <option value="3"> Hard </option>
+                </select>
         </label>
 
         <label>
@@ -51,5 +55,6 @@ return (
 
     </form>
 )
+}
 
 export default TriviaForm
