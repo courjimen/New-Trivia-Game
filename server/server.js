@@ -1,24 +1,28 @@
 import express from 'express'
+import fetch from 'node-fetch';
+import cors from 'cors';
 
-app.use(express);
+const app = express();
+app.use(cors());
 
 const PORT = 5000;
 
 //pull json data from api
-app.get('/trivia', async (req, res) => {
-    try {
-        const url = `https://opentdb.com/api.php?amount=5&category=12`
-        const response = await fetch(url);
-        const data = await response.json();
+app.get('/trivia', (req, res) => {
+const url = 'https://opentdb.com/api.php?amount=10';
 
-        if (response.status === 304) {
-            return res.send(null)
-        }
-        res.send();
-    } catch (err) {
-        console.error("error: ", err);
-    }
+    fetch(url)
+    .then(response => {
+    return response.json();
+    })
+    .then((data) => {
+        res.json(data);
+    })
+    .catch(error => {
+        console.log("error: ", error)
+    })
 });
+
 
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
