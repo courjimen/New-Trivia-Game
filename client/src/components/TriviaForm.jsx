@@ -23,6 +23,7 @@ return (
                 value={numQuest}
                 onChange={(e) => setNumQuest(e.target.value)} />
         </label>
+        <br />
 
         <label>
             Category:
@@ -33,24 +34,28 @@ return (
                 <option value="3"> Celebs</option>
                 </select>
         </label>
+        <br />
 
         <label>
             Difficulty:
             <select value={level} onChange={(e) =>setLevel(e.target.value)}>
                 <option value=" "> Any Difficulty</option>
-                <option value="1"> Easy </option>
-                <option value="2"> Medium </option>
-                <option value="3"> Hard </option>
+                <option value="Easy"> Easy </option>
+                <option value="Medium"> Medium </option>
+                <option value="Hard"> Hard </option>
                 </select>
         </label>
+        <br />
 
         <label>
-            How many questions?
-            <input
-                type="number"
-                value={numQuest}
-                onChange={(e) => setNumQuest(e.target.value)} />
+            Type of question?
+            <select value={type} onChange={(e) =>setType(e.target.value)}>
+                <option value=" "> Any Type</option>
+                <option value="multiple"> Multiple Choice </option>
+                <option value="boolean"> T / F </option>
+                </select>
         </label>
+        <br />
 
 
     </form>
