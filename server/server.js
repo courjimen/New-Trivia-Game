@@ -10,7 +10,25 @@ const PORT = 5000;
 //pull json data from api
 app.get('/trivia', (req, res) => {
 const url = 'https://opentdb.com/api.php?amount=10';
+const { amount, category, difficulty, type } = req.query;
 
+if (amount) {
+    url += `amount = ${amount}`;
+} else {
+    url += `amount = 10`;
+} 
+
+if (category) {
+    url += `&category = ${category}`;
+}
+
+if (difficulty) {
+    url += `&difficulty = ${difficulty}`;
+}
+
+if (type) {
+    url += `&type = ${type}`;
+}
     fetch(url)
     .then(response => {
     return response.json();

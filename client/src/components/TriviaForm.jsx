@@ -57,7 +57,7 @@ return (
         </label>
         <br />
 
-
+    <button type='submit'>Let's Play</button>
     </form>
 )
 }
