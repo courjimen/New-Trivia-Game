@@ -21,7 +21,7 @@ app.get('/trivia', async (req, res) => {
         }
 
         if (difficulty) {
-            urlParams.append('difficulty', difficulty);
+            urlParams.append('difficulty', difficulty.toString().toLowerCase());
         }
         if (type) {
             urlParams.append('type', type);
@@ -29,11 +29,15 @@ app.get('/trivia', async (req, res) => {
 
         const url =  baseUrl + '?' + urlParams.toString();
         const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error (`API Error : ${response.status} ${response.statusText}`)
+        }
         const data = await response.json();
         res.json(data);
 
     } catch (error) {
-        console.error("Error :", err)
+        console.error("Error with Trivia Game:", error);
     }
 });
 
