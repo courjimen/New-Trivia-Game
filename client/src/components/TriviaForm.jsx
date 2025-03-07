@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 function TriviaForm({ onFetchTrivia }) {
+    const [name, setName] = useRef('')
     const [numQuest, setNumQuest] = useState(10);
     const [cat, setCat] = useState('');
     const [level, setLevel] = useState('');
     const [type, setType] = useState('');
 
 
-const handleSubmit = (event) => {
-    event.preventDefault();
+const handleSubmit = (e) => {
+    e.preventDefault();
     onFetchTrivia({ numQuest, cat, level, type });
 };
 
-const handleNumQuest = (event) => {
-    const value = parseInt(event.target.value, 5);
+const handleNumQuest = (e) => {
+    const value = parseInt(e.target.value, 5);
 if (value >= 1 && value <= 5) {
     setNumQuest(value);
 } else {
@@ -25,6 +26,8 @@ if (value >= 1 && value <= 5) {
 return (
     <form onSubmit={handleSubmit}>
         <h1>Let's Play Music Trivia</h1>
+
+        <input value={name} placeholder="Insert Name" onChange={e => setName(e.target.value)}/>
 
         <label>
             How many questions?
