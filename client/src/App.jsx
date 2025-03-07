@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import TriviaForm from './components/TriviaForm'
 import './App.css'
-import Score from './components/Score'
+import Score from './components/Results'
 
 
 function App() {

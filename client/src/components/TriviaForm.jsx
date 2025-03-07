@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 
 function TriviaForm({ onFetchTrivia }) {
-    const [name, setName] = useRef('')
+    const [name, setName] = useState('')
     const [numQuest, setNumQuest] = useState(10);
     const [cat, setCat] = useState('');
     const [level, setLevel] = useState('');
@@ -23,12 +23,19 @@ if (value >= 1 && value <= 5) {
     }
 };
 
+const nameInputRef = useRef(null);
+
 return (
     <form onSubmit={handleSubmit}>
         <h1>Let's Play Music Trivia</h1>
-
-        <input value={name} placeholder="Insert Name" onChange={e => setName(e.target.value)}/>
-
+        
+        <input 
+        value={name} 
+        placeholder="Insert Name" 
+        onChange={(e) => setName(e.target.value)}
+        ref={nameInputRef}
+        />
+        
         <label>
             How many questions?
             <input
