@@ -5,44 +5,38 @@ import cors from 'cors';
 const app = express();
 app.use(cors());
 
-const PORT = 5000;
+let PORT = 3000;
 
 //pull json data from api
-app.get('/trivia', (req, res) => {
-let url = 'https://opentdb.com/api.php?amount=5';
-const { amount, category, difficulty, type } = req.query;
+app.get('/trivia', async (req, res) => {
+    try {
+        const baseUrl = 'https://opentdb.com/api.php?amount=5';
+        const { amount = 5, category, difficulty, type } = req.query;
+        const urlParams = new URLSearchParams();
 
-if (amount) {
-    url += `amount = ${amount}`;
-} else {
-    url += `amount = 5`;
-} 
+        urlParams.append('amount', amount);
 
-if (category) {
-    url += `&category = ${category}`;
-}
+        if (category) {
+            urlParams.append('category', category);
+        }
 
-if (difficulty) {
-    url += `&difficulty = ${difficulty}`;
-}
+        if (difficulty) {
+            urlParams.append('difficulty', difficulty);
+        }
+        if (type) {
+            urlParams.append('type', type);
+        }
 
-if (type) {
-    url += `&type = ${type}`;
-}
-
-    fetch(url)
-    .then(response => {
-    return response.json();
-    })
-    .then((data) => {
+        const url =  baseUrl + '?' + urlParams.toString();
+        const response = await fetch(url);
+        const data = await response.json();
         res.json(data);
-    })
-    .catch(error => {
-        console.log("error: ", error)
-    })
-});
 
+    } catch (error) {
+        console.error("Error :", err)
+    }
+});
 
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
-  });
+});
