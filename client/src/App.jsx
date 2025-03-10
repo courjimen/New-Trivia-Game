@@ -5,6 +5,7 @@ import TriviaForm from './components/TriviaForm';
 import './App.css';
 
 function App() {
+  const [showResults, setShowResults] =  useState(false);
   const [triviaData, setTriviaData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -85,12 +86,15 @@ function App() {
         },
         body: JSON.stringify({ score, totalQuestions: triviaData.results.length })
       });
-      
+
       if (!response.ok) {
         throw new Error(`Error status: ${response.status}`)
       }
+
       const result = await response.json();
       setScoreResult(result);
+      setShowResults(true);
+
     } catch (err) {
       setError(err.message);
       console.error('Error sending score:', err);
@@ -140,7 +144,7 @@ function App() {
         </main >
       </div >
 
-      <Results triviaData={triviaData} userAnswers={userAnswers} correctAnswersCount={correctAnswersCount} incorrectAnswersCount={incorrectAnswersCount} scoreResult={scoreResult}/>
+      <Results triviaData={triviaData} userAnswers={userAnswers} correctAnswersCount={correctAnswersCount} incorrectAnswersCount={incorrectAnswersCount} scoreResult={scoreResult} showResults={showResults}/>
     </>
   );
 }

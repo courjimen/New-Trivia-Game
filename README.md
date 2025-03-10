@@ -1,11 +1,11 @@
 # Music Trivia Game 🎵
 
-Let's see how well you know your music! 🎵 This trivia game shows off a connected frontend UI with a backend server that grabs random questions from [openAPI](https://opentdb.com/api_config.php) based on user input.
+Let's see how well you know your music! This trivia game shows off a connected frontend UI with a backend server that grabs random questions from [openAPI](https://opentdb.com/api_config.php) based on user input.
 
 ## Table of Contents
-- Installation
-- Game Instructions
-- Demo
+- [Installation](#how-to-install-this-project-locally)
+- [Game Instructions](#how-to-play)
+- [Demo](#demo)
 
 ### How to install this project locally
 First clone my project and run this in your terminal:
@@ -36,3 +36,18 @@ Server should be running on localhost 3000 on terminal one. Follow the link prov
 3. Submit your answers to see your final score 🎉
 
 ### Demo
+On the home page select your preferences:
+
+![](/images/homepage.png)
+
+After clicking "Let's Play" the trivia questions will appear:
+
+![](/images/triviagame.png)
+
+As you go through and answer, the correct/incorrect answers will display in corresponding green/red colors:
+
+![](/images/red.png)
+
+Click "Submit Answers" to view your correct answers and final score!
+
+![](/images/win.png)
