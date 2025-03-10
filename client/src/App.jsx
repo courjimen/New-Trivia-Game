@@ -3,7 +3,6 @@ import he from 'he';
 import Results from './components/Results';
 import TriviaForm from './components/TriviaForm';
 import './App.css';
-import WinLose from './components/WinLose';
 
 function App() {
   const [triviaData, setTriviaData] = useState(null);
@@ -12,6 +11,7 @@ function App() {
   const [userAnswers, setUserAnswers] = useState({});
   const [correctAnswersCount, setCorrectAnswersCount] = useState(0)
   const [incorrectAnswersCount, setinCorrectAnswersCount] = useState(0)
+  const [scoreResult, setScoreResult] = useState(null)
 
   const handleAnswer = (questionIndex, answer, correctAnswer) => {
     setUserAnswers({
@@ -25,9 +25,11 @@ function App() {
       setinCorrectAnswersCount(incorrectAnswersCount + 1)
     }
   }
+
   const fetchTrivia = async (selections) => {
     setLoading(true);
     setError(null);
+    setScoreResult(null)
 
     let url = 'https://opentdb.com/api.php?'; // Endpoint on your server
 
@@ -63,6 +65,35 @@ function App() {
       console.error('Error fetching trivia:', err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const sendScoreToBackend = async () => {
+    if (!triviaData || !triviaData.results || Object.keys(userAnswers).length === 0) {
+      return;
+    }
+
+    const score = triviaData.results.reduce((count, question, index) => {
+      return userAnswers[index] === question.correct_answer ? count + 1 : count;
+    }, 0);
+
+    try {
+      const response = await fetch('http://localhost:3000/score', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ score, totalQuestions: triviaData.results.length })
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Error status: ${response.status}`)
+      }
+      const result = await response.json();
+      setScoreResult(result);
+    } catch (err) {
+      setError(err.message);
+      console.error('Error sending score:', err);
     }
   };
 
@@ -103,13 +134,13 @@ function App() {
                   )
                 })}
               </ol>
-
+                <button onClick={sendScoreToBackend}>Submit Answers</button>
             </div>
           )}
         </main >
       </div >
 
-      <Results triviaData={triviaData} userAnswers={userAnswers} correctAnswersCount={correctAnswersCount} incorrectAnswersCount={incorrectAnswersCount} />
+      <Results triviaData={triviaData} userAnswers={userAnswers} correctAnswersCount={correctAnswersCount} incorrectAnswersCount={incorrectAnswersCount} scoreResult={scoreResult}/>
     </>
   );
 }
