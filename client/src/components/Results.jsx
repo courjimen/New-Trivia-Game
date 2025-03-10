@@ -1,7 +1,9 @@
 import React from 'react'
 
-export default function Score() {
+function Results({question}) {
   return (
-    <div>Score</div>
+    <div>Question: {question}</div>
   )
 }
+
+export default Results

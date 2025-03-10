@@ -11,12 +11,12 @@ function App() {
     setLoading(true);
     setError(null);
 
-    let url = '/trivia?'; // Endpoint on your server
+    let url = 'https://opentdb.com/api.php?amount=5'; // Endpoint on your server
 
     if (selections.numQuestions) {
       url += `amount=${selections.numQuestions}`;
     } else {
-      url += `amount=10`; //Default amount
+      url += `amount=5`; //Default amount
     }
 
     if (selections.category) {
@@ -49,6 +49,7 @@ function App() {
   };
 
   return (
+    <>
     <div className="App">
       <main>
         <TriviaForm onFetchTrivia={fetchTrivia} />
@@ -56,15 +57,25 @@ function App() {
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
 
-        {triviaData && (
+        {triviaData && triviaData.results && (
           <div>
             <h3>Trivia Questions:</h3>
-            <pre>{JSON.stringify(triviaData, null, 2)}</pre>
-            {/* Render trivia questions here, mapping over triviaData */}
+            <ol>
+              {triviaData.results.map((question,index) => (
+                <li key={index}>
+                  <p>Question: {question.question}</p>
+                  <p>Answer: {question.correct_answer} </p>
+                </li> 
+              ))}
+            </ol>
+            
           </div>
         )}
       </main>
     </div>
+
+    {/* <Results /> */}
+    </>
   );
 }
 

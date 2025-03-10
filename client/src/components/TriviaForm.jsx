@@ -10,11 +10,14 @@ function TriviaForm({ onFetchTrivia }) {
 
 const handleSubmit = (e) => {
     e.preventDefault();
-    onFetchTrivia({ numQuest, cat, level, type });
+    onFetchTrivia({ numQuestions: numQuest, 
+        category: cat, 
+        difficulty: level, 
+        type: type });
 };
 
 const handleNumQuest = (e) => {
-    const value = parseInt(e.target.value, 5);
+    const value = parseInt(e.target.value, 10);
 if (value >= 1 && value <= 5) {
     setNumQuest(value);
 } else {
