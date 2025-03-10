@@ -45,7 +45,7 @@ app.post('/score', (req, res) => {
     console.log('received score request:', req.body);
     const { score, totalQuestions } = req.body;
     const percentage = (score / totalQuestions) * 100;
-    const result = percentage > 51 ? `Winner! ${percentage}` : `You Lose ${percentage}`;
+    const result = percentage > 51 ? `Winner!` : `You Lose`;
 
     res.json({ score, totalQuestions, result })
 })
