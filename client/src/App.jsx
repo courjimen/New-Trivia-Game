@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Results from './components/Results';
 import TriviaForm from './components/TriviaForm'; // Adjust path as needed
 import './App.css'; // Optional: You can have global styles
 
@@ -11,7 +12,7 @@ function App() {
     setLoading(true);
     setError(null);
 
-    let url = 'https://opentdb.com/api.php?amount=5'; // Endpoint on your server
+    let url = 'https://opentdb.com/api.php?'; // Endpoint on your server
 
     if (selections.numQuestions) {
       url += `amount=${selections.numQuestions}`;
@@ -20,14 +21,14 @@ function App() {
     }
 
     if (selections.category) {
-      url += `&category=${selections.category}`;
+      url += `&category=${parseInt(selections.category)}`;
     }
 
-    if (selections.difficulty) {
-      url += `&difficulty=${selections.difficulty}`;
+    if (selections.difficulty && selections.difficulty !== ' ') {
+      url += `&difficulty=${selections.difficulty.toLowerCase()}`;
     }
 
-    if (selections.type) {
+    if (selections.type && selections.type !== ' ') {
       url += `&type=${selections.type}`;
     }
 
@@ -64,7 +65,7 @@ function App() {
               {triviaData.results.map((question,index) => (
                 <li key={index}>
                   <p>Question: {question.question}</p>
-                  <p>Answer: {question.correct_answer} </p>
+                  {/* <p>Answer: {question.correct_answer} </p> */}
                 </li> 
               ))}
             </ol>
@@ -74,7 +75,7 @@ function App() {
       </main>
     </div>
 
-    {/* <Results /> */}
+    <Results />
     </>
   );
 }

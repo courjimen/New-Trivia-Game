@@ -2,7 +2,7 @@ import React from 'react'
 
 function Results({question}) {
   return (
-    <div>Question: {question}</div>
+    <div> {question}</div>
   )
 }
 

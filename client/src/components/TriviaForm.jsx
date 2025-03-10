@@ -54,9 +54,9 @@ return (
             Category:
             <select value={cat} onChange={(e) =>setCat(e.target.value)}>
                 <option value=" "> Any Category</option>
-                <option value="1"> Music</option>
-                <option value="2"> Musicals & Theaters</option>
-                <option value="3"> Celebs</option>
+                <option value="12"> Music</option>
+                <option value="15"> Musicals & Theaters</option>
+                <option value="26"> Celebs</option>
                 </select>
         </label>
         <br />
@@ -65,9 +65,9 @@ return (
             Difficulty:
             <select value={level} onChange={(e) =>setLevel(e.target.value)}>
                 <option value=" "> Any Difficulty</option>
-                <option value="Easy"> Easy </option>
-                <option value="Medium"> Medium </option>
-                <option value="Hard"> Hard </option>
+                <option value="easy"> Easy </option>
+                <option value="medium"> Medium </option>
+                <option value="hard"> Hard </option>
                 </select>
         </label>
         <br />
