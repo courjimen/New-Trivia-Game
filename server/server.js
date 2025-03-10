@@ -11,10 +11,8 @@ let PORT = 3000;
 app.get('/trivia', async (req, res) => {
     try {
         const baseUrl = 'https://opentdb.com/api.php?amount=5';
-        const { amount = 5, category, difficulty, type } = req.query;
+        const { category, difficulty, type } = req.query;
         const urlParams = new URLSearchParams();
-
-        urlParams.append('amount', amount);
 
         if (category) {
             urlParams.append('category', category);
