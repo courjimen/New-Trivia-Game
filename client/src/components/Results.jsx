@@ -1,14 +1,15 @@
 import React from 'react'
 import he from 'he'
+import WinLose from './WinLose';
 
-function Results({ triviaData, userAnswers }) {
+function Results({ triviaData, userAnswers, scoreResult }) {
   if (!triviaData || !triviaData.results) {
     return null;
   }
   return (
     <>
     <div>
-        <h3>Results:</h3>
+        <h3>Correct Answers:</h3>
         <ol>
           {triviaData.results.map((question, index) =>
             <li key={index}>
@@ -22,6 +23,8 @@ function Results({ triviaData, userAnswers }) {
             </li>
           )}
         </ol>
+      <h3>Your Score:</h3>
+      <WinLose scoreResult={scoreResult} />
       </div>
     </>
     )

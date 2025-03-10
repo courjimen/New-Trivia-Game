@@ -1,20 +1,29 @@
 import React, { useState } from 'react';
 import he from 'he';
 import Results from './components/Results';
-import TriviaForm from './components/TriviaForm'; // Adjust path as needed
-import './App.css'; // Optional: You can have global styles
+import TriviaForm from './components/TriviaForm';
+import './App.css';
+import WinLose from './components/WinLose';
 
 function App() {
   const [triviaData, setTriviaData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [userAnswers, setUserAnswers] = useState({});
+  const [correctAnswersCount, setCorrectAnswersCount] = useState(0)
+  const [incorrectAnswersCount, setinCorrectAnswersCount] = useState(0)
 
-  const handleAnswer = (questionIndex, answer) => {
+  const handleAnswer = (questionIndex, answer, correctAnswer) => {
     setUserAnswers({
       ...userAnswers,
       [questionIndex]: answer,
     })
+
+    if (answer === correctAnswer) {
+      setCorrectAnswersCount(correctAnswersCount + 1);
+    } else {
+      setinCorrectAnswersCount(incorrectAnswersCount + 1)
+    }
   }
   const fetchTrivia = async (selections) => {
     setLoading(true);
@@ -81,7 +90,7 @@ function App() {
                         {answers.map((answer, answerIndex) => (
                           < button
                             key={answerIndex}
-                            onClick={() => handleAnswer(index, answer)}
+                            onClick={() => handleAnswer(index, answer, question.correct_answer)}
                             style={{
                               backgroundColor: userAnswers[index] === answer ? 'lightblue' : 'white',
                             }}
@@ -100,7 +109,7 @@ function App() {
         </main >
       </div >
 
-      <Results triviaData={triviaData} userAnswers={userAnswers} />
+      <Results triviaData={triviaData} userAnswers={userAnswers} correctAnswersCount={correctAnswersCount} incorrectAnswersCount={incorrectAnswersCount} />
     </>
   );
 }
