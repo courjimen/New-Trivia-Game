@@ -1,9 +1,11 @@
 import express from 'express'
 import fetch from 'node-fetch';
 import cors from 'cors';
+import bodyParser from 'body-parser' 
 
 const app = express();
 app.use(cors());
+app.use(bodyParser.json());
 
 let PORT = 3000;
 
@@ -34,16 +36,19 @@ app.get('/trivia', async (req, res) => {
         const data = await response.json();
         res.json(data.results);
 
-        // const question = data.results.question;
-
-        // res.send({
-        //     question: question,
-        // })
-
     } catch (error) {
         console.error("Error with Trivia Game:", error);
     }
 });
+
+app.post('/score', (req, res) => {
+    console.log('received score request:', req.body);
+    const { score, totalQuestions } = req.body;
+    const percentage = (score / totalQuestions) * 100;
+    const result = percentage > 51 ? `Winner! ${percentage}` : `You Lose ${percentage}`;
+
+    res.json({ score, totalQuestions, result })
+})
 
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
