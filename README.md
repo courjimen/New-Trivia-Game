@@ -1,4 +1,4 @@
-# Music Trivia Game
+# Music Trivia Game 🎵
 
 Let's see how well you know your music! 🎵 This trivia game shows off a connected frontend UI with a backend server that grabs random questions from [openAPI](https://opentdb.com/api_config.php) based on user input.
 
@@ -31,5 +31,8 @@ npm run dev
 Server should be running on localhost 3000 on terminal one. Follow the link provided in terminal two and it will display the Trivia Game!
 
 ### How to Play
+1. Complete the form and select your options
+2. Choose your answers (try to get all of the right!)
+3. Submit your answers to see your final score 🎉
 
 ### Demo
