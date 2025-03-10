@@ -34,7 +34,13 @@ app.get('/trivia', async (req, res) => {
             throw new Error (`API Error : ${response.status} ${response.statusText}`)
         }
         const data = await response.json();
-        res.json(data);
+        res.json(data.results);
+
+        // const question = data.results.question;
+
+        // res.send({
+        //     question: question,
+        // })
 
     } catch (error) {
         console.error("Error with Trivia Game:", error);
