@@ -30,7 +30,7 @@ const nameInputRef = useRef(null);
 
 return (
     <form onSubmit={handleSubmit}>
-        <h1>Let's Play Music Trivia</h1>
+        <h1>Let's Play Music Trivia {name}</h1>
         
         <input 
         value={name} 
