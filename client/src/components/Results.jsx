@@ -15,9 +15,13 @@ function Results({ triviaData, userAnswers, scoreResult }) {
             <li key={index}>
               <p>Question: {he.decode(question.question)}</p>
               {userAnswers[index] && (
-                <p>
-                  {userAnswers[index] === question.correct_answer
-                    ? 'Correct!' : `Incorrect. Correct answer: ${he.decode(question.correct_answer)}`}
+                <p
+                style={{
+                    color: 
+                    userAnswers[index] === question.correct_answer ? 'green' : 'red'
+                }}
+                >
+                  {userAnswers[index] === question.correct_answer ? 'Correct!' : `Incorrect. Correct answer: ${he.decode(question.correct_answer)}`}
                 </p>
               )}
             </li>
