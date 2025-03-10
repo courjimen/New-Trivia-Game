@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import he from 'he';
 import Results from './components/Results';
 import TriviaForm from './components/TriviaForm'; // Adjust path as needed
 import './App.css'; // Optional: You can have global styles
@@ -7,7 +8,14 @@ function App() {
   const [triviaData, setTriviaData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [userAnswers, setUserAnswers] = useState({});
 
+  const handleAnswer = (questionIndex, answer) => {
+    setUserAnswers({
+      ...userAnswers,
+      [questionIndex]: answer,
+    })
+  }
   const fetchTrivia = async (selections) => {
     setLoading(true);
     setError(null);
@@ -51,31 +59,48 @@ function App() {
 
   return (
     <>
-    <div className="App">
-      <main>
-        <TriviaForm onFetchTrivia={fetchTrivia} />
+      <div className="App">
+        <main>
+          <TriviaForm onFetchTrivia={fetchTrivia} />
 
-        {loading && <p>Loading...</p>}
-        {error && <p>Error: {error}</p>}
+          {loading && <p>Loading...</p>}
+          {error && <p>Error: {error}</p>}
 
-        {triviaData && triviaData.results && (
-          <div>
-            <h3>Trivia Questions:</h3>
-            <ol>
-              {triviaData.results.map((question,index) => (
-                <li key={index}>
-                  <p>Question: {question.question}</p>
-                  {/* <p>Answer: {question.correct_answer} </p> */}
-                </li> 
-              ))}
-            </ol>
-            
-          </div>
-        )}
-      </main>
-    </div>
+          {triviaData && triviaData.results && (
+            <div>
+              <h3>Trivia Questions:</h3>
+              <ol>
+                {triviaData.results.map((question, index) => {
+                  const answers = [...question.incorrect_answers, question.correct_answer];
+                  answers.sort(() => Math.random() - 0.5)
 
-    <Results />
+                  return (
+                    <li key={index}>
+                      <p>Question: {he.decode(question.question)}</p>
+                      <div>
+                        {answers.map((answer, answerIndex) => (
+                          < button
+                            key={answerIndex}
+                            onClick={() => handleAnswer(index, answer)}
+                            style={{
+                              backgroundColor: userAnswers[index] === answer ? 'lightblue' : 'white',
+                            }}
+                          >
+                            {he.decode(answer)}
+                          </button>
+                        ))}
+                      </div>
+                    </li>
+                  )
+                })}
+              </ol>
+
+            </div>
+          )}
+        </main >
+      </div >
+
+      <Results triviaData={triviaData} userAnswers={userAnswers} />
     </>
   );
 }

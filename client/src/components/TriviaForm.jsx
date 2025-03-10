@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 
 function TriviaForm({ onFetchTrivia }) {
     const [name, setName] = useState('')
-    const [numQuest, setNumQuest] = useState(10);
+    const [numQuest, setNumQuest] = useState(5);
     const [cat, setCat] = useState('');
     const [level, setLevel] = useState('');
     const [type, setType] = useState('');
@@ -17,7 +17,7 @@ const handleSubmit = (e) => {
 };
 
 const handleNumQuest = (e) => {
-    const value = parseInt(e.target.value, 10);
+    const value = parseInt(e.target.value, 5);
 if (value >= 1 && value <= 5) {
     setNumQuest(value);
 } else {
